@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EventCard from "../../components/EventCard";
 import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
@@ -13,24 +13,27 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
-  });
-  const changeType = (evtType) => {
+  const [filteredEvents, setFilteredEvents] = useState([]); 
+  const changeType = (newType) => {
     setCurrentPage(1);
-    setType(evtType);
+    setType(newType);
   };
-  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
+const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(() => { 
+    const startIndex = (currentPage - 1) * PER_PAGE; 
+    const endIndex = startIndex + PER_PAGE; 
+    const filtered = type 
+      ? data?.events.filter((event) => event.type === type)
+      : data?.events || [];
+    const paginatedEvents = filtered.slice(startIndex, endIndex); 
+    setFilteredEvents(paginatedEvents); 
+
+    const filteredCount = filtered.length;  
+    const calculatedPageNumber = Math.ceil(filteredCount / PER_PAGE); 
+    setPageNumber(calculatedPageNumber); 
+  }, [type, data?.events, currentPage]);
+
   const typeList = new Set(data?.events.map((event) => event.type));
   return (
     <>
@@ -60,10 +63,14 @@ const EventList = () => {
             ))}
           </div>
           <div className="Pagination">
-            {[...Array(pageNumber || 0)].map((_, n) => (
+            {Array.from({ length: pageNumber }, (_, index) => (
+              <a href="#nos-realisations"
               // eslint-disable-next-line react/no-array-index-key
-              <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
-                {n + 1}
+                key={index + 1}
+                className={currentPage === index + 1 ? "active" : ""}
+                onClick={() => setCurrentPage(index + 1 )}
+              >
+                {index + 1}
               </a>
             ))}
           </div>
