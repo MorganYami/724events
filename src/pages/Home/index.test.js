@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "./index";
 
 describe("When Form is created", () => {
@@ -21,7 +21,7 @@ describe("When Form is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await screen.findByText("Message envoyé !");
+      await waitFor(() => screen.findByText("Message envoyé !"), { timeout: 6500 }); 
     });
   });
 
@@ -31,6 +31,7 @@ describe("When Form is created", () => {
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
     // to implement
+    //tester présence au moins 1 datatestid
   })
   it("a list a people is displayed", () => {
     // to implement

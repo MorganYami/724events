@@ -15,7 +15,7 @@ const Slider = () => {
       setTimeout(
           () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
           5000
-      );
+      ); // probleme length undefine on first slide
   };
   useEffect(() => {
     clearTimeout(timeoutId.current);
