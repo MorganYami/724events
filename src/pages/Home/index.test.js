@@ -21,25 +21,53 @@ describe("When Form is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await waitFor(() => screen.findByText("Message envoyé !"), { timeout: 6500 }); 
+      await waitFor(() => screen.findByText("Message envoyé !"), { timeout: 6500 });
     });
   });
 
 });
 
 
+/////////////
+jest.mock("../../contexts/DataContext/index", () => ({
+  useData: () => ({
+    last: {
+      cover: "/images/headway-F2KRf_QfCqw-unsplash.png",
+      title: "Conférence #productCON",
+      date: new Date("2022-08-29T20:28:45.744Z"),
+    },
+    data: null,
+    error: null,
+  }),
+}));
+
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
-    //tester présence au moins 1 datatestid
-  })
+  it("a list of events is displayed", async () => {
+    render(<Home />);
+    const eventListElement = screen.getByTestId("card-testid");
+    expect(eventListElement).toBeInTheDocument();
+  });
+
   it("a list a people is displayed", () => {
-    // to implement
-  })
+    render(<Home />);
+
+    const peopleCards = screen.getAllByTestId("Peoplecard-testid");
+    expect(peopleCards.length).toBeGreaterThan(1);
+  });
   it("a footer is displayed", () => {
-    // to implement
-  })
+    render(<Home />);
+
+    const footerDisplay = screen.getByText("Contactez-nous");
+    expect(footerDisplay).toBeInTheDocument();
+  });
+
   it("an event card, with the last event, is displayed", () => {
-    // to implement
-  })
+    render(<Home />);
+
+    const eventCards = screen.getAllByTestId("card-testid");
+    const smallEventCard = eventCards.filter((card) =>
+      card.classList.contains("EventCard--small")
+    );
+    expect(smallEventCard.length).toBe(1);
+  });
 });
