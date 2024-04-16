@@ -13,6 +13,7 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
+  //new way to call for the last event
   const { data } = useData();
   const last = data?.events.reduce((previousEvent, currentEvent) => {
       const previousDate = new Date(previousEvent.date);
@@ -129,6 +130,7 @@ const Page = () => {
       <div className="col presta">
       <h3>Notre derniére prestation</h3>
           <EventCard
+          //corrected last? to lastProps
             imageSrc={lastProps.cover}
             title={lastProps.title}
             date={new Date(lastProps.date)}
