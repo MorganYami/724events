@@ -13,7 +13,7 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  //rewritten the whole script
+  // rewritten the whole script
   const [filteredEvents, setFilteredEvents] = useState([]); 
   const changeType = (newType) => {
     setCurrentPage(1);

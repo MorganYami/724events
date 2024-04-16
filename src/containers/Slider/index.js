@@ -12,10 +12,10 @@ const Slider = () => {
     ) || [];
     const timeoutId = useRef(null);
     const nextCard = () => {
-        //corrected index: length-1
+        // corrected index: length-1
         setIndex((prevIndex) => (prevIndex === byDateDesc.length - 1 ? 0 : prevIndex + 1));
     };
-    //added fonction for the radio buttons
+    // added fonction for the radio buttons
     useEffect(() => {
         clearTimeout(timeoutId.current);
         timeoutId.current = setTimeout(() => {
@@ -28,9 +28,9 @@ const Slider = () => {
     };
 
     return (
-        //line 38:using id in place of title : '{event.title}' => '{event.id}' 
-        //line 5'3'+ : Corrected to use event : 'byDateDesc.map((_, radioIdx)' => 'byDateDesc.map((event, radioIdx)'
-        //line 60: added onChange for radio buttons
+        // line 38:using id in place of title : '{event.title}' => '{event.id}' 
+        // line 5'3'+ : Corrected to use event : 'byDateDesc.map((_, radioIdx)' => 'byDateDesc.map((event, radioIdx)'
+        // line 60: added onChange for radio buttons
         <div className="SlideCardList" data-testid="slider-testid">
             {byDateDesc.map((event, idx) => (
                 <div

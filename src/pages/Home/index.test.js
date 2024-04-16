@@ -1,6 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "./index";
-import { DataProvider, useData } from "../../contexts/DataContext";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -30,29 +29,8 @@ describe("When Form is created", () => {
 });
 
 
-/////////////
-// jest.mock("../../contexts/DataContext/index", () => ({
-//   useData: () => ({
-//     "events": [
-//       {
-//         "id": 12,
-//         "type": "soirée entreprise",
-//         "date": "2022-03-29T20:28:45.744Z",
-//         "title": "Mega Event",
-//         "cover": "/images/chuttersnap-Q_KdjKxntH8-unsplash.png",
-//       },
-//       {
-//         "id": 13,
-//         "type": "conférence",
-//         "date": "2022-08-29T20:28:45.744Z",
-//         "title": "Conférence #productCON",
-//         "cover": "/images/headway-F2KRf_QfCqw-unsplash.png"
-//       }
-//     ],
-//     data: null,
-//     error: null,
-//   }),
-// }));
+///////////// Missing tests
+
 
 describe("When a page is created", () => {
   it("a list of events is displayed", async () => {
